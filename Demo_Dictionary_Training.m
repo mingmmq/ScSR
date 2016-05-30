@@ -11,7 +11,7 @@
 % ECE Department, University of Illinois at Urbana-Champaign
 % For any questions, send email to jyang29@uiuc.edu
 % =========================================================================
-function  Demo_Dictionary_Training(type, TR_IMG_PATH, dict_size)
+function  Demo_Dictionary_Training(type, TR_IMG_PATH, dict_size, patch_size)
 
 
 %clear all; clc; close all;
@@ -21,7 +21,7 @@ addpath(genpath('RegularizedSC'));
 
 %dict_size   = 512;          % dictionary size
 lambda      = 0.15;         % sparsity regularization
-patch_size  = 5;            % image patch size
+%patch_size  = 5;            % image patch size
 nSmp        = 100000;       % number of patches to sample
 upscale     = 2;            % upscaling factor
 
@@ -34,7 +34,7 @@ upscale     = 2;            % upscaling factor
 
 % joint sparse coding 
 [Dh, Dl] = train_coupled_dict(Xh, Xl, dict_size, lambda, upscale);
-dict_path = ['Dictionary/D_' type '_' num2str(dict_size) '_' num2str(lambda) '_' num2str(patch_size) '_s' num2str(upscale) '.mat' ];
+dict_path = ['Dictionary/D_' type '_' num2str(dict_size) '_' num2str(lambda) '_' num2str(patch_size) '_s' num2str(upscale) '_bp' num2str(patch_size) '.mat' ];
 save(dict_path, 'Dh', 'Dl');
 
 end
