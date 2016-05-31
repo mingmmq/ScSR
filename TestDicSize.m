@@ -1,0 +1,15 @@
+tic;
+Demo_SR('Dictionary/D_original_128_0.15_5_s2.mat', 'Data/Testing/input.bmp', 'Data/Testing/gnd.bmp', 'TestResult/lenaDic128.bmp');
+toc;
+tic;
+Demo_SR('Dictionary/D_original_256_0.15_5_s2.mat', 'Data/Testing/input.bmp', 'Data/Testing/gnd.bmp', 'TestResult/lenaDic256.bmp');
+toc;
+tic;
+Demo_SR('Dictionary/D_original_512_0.15_5_s2.mat', 'Data/Testing/input.bmp', 'Data/Testing/gnd.bmp', 'TestResult/lenaDic512.bmp');
+toc;
+tic;
+Demo_SR('Dictionary/D_1024_0.15_5.mat', 'Data/Testing/input.bmp', 'Data/Testing/gnd.bmp', 'TestResult/lenaDic1024.bmp');
+toc;
+tic;
+Demo_SR('Dictionary/D_original_2048_0.15_5_s2.mat', 'Data/Testing/input.bmp', 'Data/Testing/gnd.bmp', 'TestResult/lenaDic2048.bmp');
+toc;

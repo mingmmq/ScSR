@@ -1,4 +1,5 @@
 % =========================================================================
+% =========================================================================
 % Simple demo codes for image super-resolution via sparse representation
 %
 % Reference
@@ -11,20 +12,20 @@
 % ECE Department, University of Illinois at Urbana-Champaign
 % For any questions, send email to jyang29@uiuc.edu
 % =========================================================================
-
-clear all; clc;
+function [] = Demo_SR(dic, input, ground, output, overlap)
+%clear all; clc;
 
 % read test image
-im_l = imread('Data/Testing/input.bmp');
+im_l = imread(input);
 
 % set parameters
 lambda = 0.2;                   % sparsity regularization
-overlap = 4;                    % the more overlap the better (patch size 5x5)
+%overlap = 2;                    % the more overlap the better (patch size 5x5)
 up_scale = 2;                   % scaling factor, depending on the trained dictionary
 maxIter = 20;                   % if 0, do not use backprojection
 
 % load dictionary
-load('Dictionary/D_1024_0.15_5.mat');
+load(dic);
 
 % change color space, work on illuminance only
 im_l_ycbcr = rgb2ycbcr(im_l);
@@ -48,23 +49,27 @@ im_h_ycbcr(:, :, 3) = im_h_cr;
 im_h = ycbcr2rgb(uint8(im_h_ycbcr));
 
 % bicubic interpolation for reference
-im_b = imresize(im_l, [nrow, ncol], 'bicubic');
+%im_b = imresize(im_l, [nrow, ncol], 'bicubic');
 
 % read ground truth image
-im = imread('Data/Testing/gnd.bmp');
+im = imread(ground);
 
 % compute PSNR for the illuminance channel
-bb_rmse = compute_rmse(im, im_b);
+%bb_rmse = compute_rmse(im, im_b);
 sp_rmse = compute_rmse(im, im_h);
 
-bb_psnr = 20*log10(255/bb_rmse);
+%bb_psnr = 20*log10(255/bb_rmse);
 sp_psnr = 20*log10(255/sp_rmse);
 
-fprintf('PSNR for Bicubic Interpolation: %f dB\n', bb_psnr);
-fprintf('PSNR for Sparse Representation Recovery: %f dB\n', sp_psnr);
+%fprintf('PSNR for Bicubic Interpolation: %f dB\n', bb_psnr);
+fprintf('RMSE for Sparse Representation Recovery: %.2f dB\n', sp_rmse);
+fprintf('PSNR for Sparse Representation Recovery: %.2f dB\n', sp_psnr);
 
 % show the images
 figure, imshow(im_h);
 title('Sparse Recovery');
-figure, imshow(im_b);
-title('Bicubic Interpolation');
+imwrite(im_h, output);
+%figure, imshow(im_b);
+%$title('Bicubic Interpolation');
+
+end
